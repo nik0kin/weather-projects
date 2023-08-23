@@ -49,10 +49,7 @@ export const handleFeed = async (feedSettings: FeedSettings, settings: Required<
   });
 
   // write updated RSS feeds
-  const xml = newFeed
-    .xml()
-    .replace(/<guid isPermaLink="false"/g, '<guid isPermaLink="true"') // "rss" module has weird isPermaLink logic
-    .replace(/\&amp;/g, '&'); // dont mess with guid link
+  const xml = newFeed.xml();
   const writePath = join(__dirname, '..', settings.feedsWwwDirectory, feedSettings.id + '.xml');
   try {
     writeFileSync(writePath, xml, { encoding: 'utf8' });
